@@ -21,4 +21,4 @@ def jokes():
     result = cursor.fetchall()
     return json.dumps(result)
 
-app.run(host="",port=5678)
+app.run(host="0.0.0.0",port=5678)
