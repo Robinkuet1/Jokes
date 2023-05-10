@@ -4,7 +4,7 @@ Jokes
 ## Webpage
 url: http://152.67.73.118:5679/
 
-url2: jokes.robinkuet1.com
+url2: https://jokes.robinkuet1.com/
 
 ## db
 url: http://152.67.73.118:8080/
