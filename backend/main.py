@@ -1,9 +1,14 @@
 import mysql.connector
+from flask import Flask
+import json
+
 db = mysql.connector.connect(host = 'db', user = 'foo', password = 'bar', port = 3306, database = 'jokes')
+cursor = db.cursor()
 
+app = Flask(__name__)
 
-mycursor = db.cursor()
-mycursor.execute("SELECT * FROM joke")
-myresult = mycursor.fetchall()
-for i in myresult:
-    print(i)
+@app.route("/")
+def hello_world():
+    cursor.execute("SELECT * FROM joke")
+    result = cursor.fetchall()
+    return json.dumps(result)
