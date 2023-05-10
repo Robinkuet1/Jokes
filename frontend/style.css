@@ -17,8 +17,29 @@ header{
     border: 2px solid;
 }
 
+
 ul > li {
     display: inline-block;
+}
+h1 {
+    margin: 0;
+}
+
+main {
+    margin: 20px;
+}
+
+form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
 }
 
 footer{
