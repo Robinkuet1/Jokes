@@ -13,4 +13,4 @@ def hello_world():
     result = cursor.fetchall()
     return json.dumps(result)
 
-app.run(port=5678)
+app.run(host="0.0.0.0",port=5678)
