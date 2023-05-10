@@ -6,7 +6,7 @@ body{
     flex-direction: column;
 }
 
-header{
+/* header{
     background-color: rgb(111, 214, 123);
     text-decoration: none;
     display: flex;
@@ -15,7 +15,7 @@ header{
     padding: 10px;
     align-items: center;
     border: 2px solid;
-}
+} */
 
 
 ul > li {
