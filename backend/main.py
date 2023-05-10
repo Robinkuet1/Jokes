@@ -13,7 +13,7 @@ def hello_world():
 
 @app.route("/jokes")
 def jokes():
-    if(request.args.get('catergory')):
+    if(request.args.get('category')):
         return "todo"
     elif(request.args.get('id')):
         return "todo"
