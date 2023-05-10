@@ -20,3 +20,12 @@ header{
 ul > li {
     display: inline-block;
 }
+
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: rgb(93, 68, 147);
+    border: 2px solid;
+}
