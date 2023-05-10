@@ -12,3 +12,5 @@ def hello_world():
     cursor.execute("SELECT * FROM joke")
     result = cursor.fetchall()
     return json.dumps(result)
+
+app.run(port=5678)
