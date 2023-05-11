@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="libs/jquery-ui-1.13.2/jquery-ui.css">
     <script src="libs/jquery-3.6.4.js"></script>
     <script src="libs/jquery-ui-1.13.2/jquery-ui.js"></script>
-
+    <style>
+        .ui-autocomplete-loading {
+          background: white url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/images/ui-anim_basic_16x16.gif") right center no-repeat;
+        }
+    </style>      
 </head>
 <body>
 <header>
@@ -24,8 +28,8 @@
                 <input id="search">
                 <script>
                     $("#search").autocomplete({
-                        source: ["test", "test2"],
-                        minLength: 2,
+                        source: "http://152.67.73.118:5678/autocomplete/topics?category=",
+                        minLength: 1,
                         select: function (event, ui) {
                             console.log(ui.item.value);
                         }
