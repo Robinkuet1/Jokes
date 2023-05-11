@@ -21,4 +21,19 @@ def jokes():
     result = cursor.fetchall()
     return json.dumps(result)
 
+@app.route("/autocomplete/topics")
+def autocompleteTopics():
+    searchParam = request.args.get("category")
+    cursor.execute(f"SELECT Name FROM category WHERE Name LIKE \"%{searchParam}%\"")
+    result = cursor.fetchall()
+    return json.dumps(result)
+
+@app.route("/register")
+def register():
+    uname = request.args.get("username")
+    pwd = request.args.get("pwd")
+    if(uname == "" or pwd == ""):
+        return "Error"
+
+
 app.run(host="0.0.0.0",port=5678)

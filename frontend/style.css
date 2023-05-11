@@ -1,52 +1,14 @@
-body{
-    margin: 0px;
-    font-family: Helvetica, Arial, sans-serif;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-header{
-    background-color: rgb(111, 214, 123);
-    text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-    align-items: center;
-    border: 2px solid;
-}
-
-
-ul > li {
-    display: inline-block;
-}
-h1 {
+body {
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-main {
-    margin: 20px;
-}
-
-form {
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    margin-bottom: 20px;
-}
-
-label {
-    margin-right: 10px;
-}
-
-input[type="text"] {
-    flex: 1;
-}
-
-footer{
-    display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    height: 200px;
     padding: 10px;
-    background-color: rgb(93, 68, 147);
-    border: 2px solid;
 }
