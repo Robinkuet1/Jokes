@@ -3,11 +3,11 @@ from flask import Flask, request
 from flask_cors import CORS
 import json
 
-def sql(querry):
+def sql(querry, size = 10):
     db = mysql.connector.connect(host = 'db', user = 'foo', password = 'bar', port = 3306, database = 'jokes')
     cursor = db.cursor()
     cursor.execute(querry)
-    return cursor.fetchall()
+    return cursor.fetchmany(size)
 
 
 app = Flask(__name__)
