@@ -1,5 +1,6 @@
 create database jokes;
 use jokes;
+
 create table category
 (
     Id   int auto_increment
@@ -38,12 +39,14 @@ create table comment
         foreign key (JokeId) references joke (Id)
 );
 
-create table rating
+create table vote
 (
-    Id     int auto_increment
-        primary key,
-    Rating int not null,
-    JokeId int not null,
-    constraint rating_joke_Id_fk
-        foreign key (JokeId) references joke (Id)
+    UserId int        not null,
+    JokeId int        not null,
+    Up     tinyint(1) null,
+    constraint JokeId
+        foreign key (JokeId) references joke (Id),
+    constraint UserId
+        foreign key (UserId) references user (Id)
 );
+
