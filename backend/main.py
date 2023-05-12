@@ -3,8 +3,12 @@ from flask import Flask, request
 from flask_cors import CORS
 import json
 
-db = mysql.connector.connect(host = 'db', user = 'foo', password = 'bar', port = 3306, database = 'jokes')
-cursor = db.cursor()
+def sql(querry):
+    db = mysql.connector.connect(host = 'db', user = 'foo', password = 'bar', port = 3306, database = 'jokes')
+    cursor = db.cursor()
+    cursor.execute(querry)
+    return cursor.fetchall()
+
 
 app = Flask(__name__)
 CORS(app)
@@ -19,16 +23,13 @@ def jokes():
         return "todo"
     elif(request.args.get('id')):
         return "todo"
-    cursor.execute("SELECT * FROM joke")
-    result = cursor.fetchall()
+    result = sql("SELECT * FROM jokes")
     return json.dumps(result)
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
     searchParam = request.args.get("category")
-    cursor.execute(f"SELECT Name FROM category WHERE Name LIKE \"%{searchParam}%\"")
-    result = cursor.fetchall()
-    result = cursor.fetchall()
+    result = sql(f"SELECT Name FROM category WHERE Name LIKE \"%{searchParam}%\"")
     maxResult = 50
     resultList = []
     for i in result:
