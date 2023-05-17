@@ -44,4 +44,11 @@ def register():
     if(uname == "" or pwd == ""):
         return "Error"
     
+    
+@app.route("/login")
+def login():
+    uname = request.args.get("username")
+    pwd = request.args.get("pwd")
+    exists = sql(f"SELECT Id FROM user WHERE Username = '{uname}'")
+
 app.run(host="0.0.0.0",port=5678)
