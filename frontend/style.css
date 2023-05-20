@@ -9,6 +9,7 @@
     background-color: #fff;
     border-radius: 20px;
     padding: 10px;
+    margin: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -17,6 +18,7 @@
     border: none;
     font-size: 16px;
     padding: 10px;
+    margin: 8px;
     outline: none;
 }
 
@@ -26,15 +28,17 @@
     outline: none;
     cursor: pointer;
     margin-left: 10px;
+
 }
 
 header {
     display: flex;
     width: 100%;
-    border-bottom: solid 1px gray;
-    /* background-color: gray;
-    box-shadow: 0 4px 2px -2px gray; */
-
+    border-bottom: solid 1px gray   ;
+    background-color: solid 1px lightgray;
+    background-color: lightgray;
+    /* box-shadow: 0 4px 2px -2px lightgray; */
+    height: 4em;
 }
 
 ul {
@@ -61,7 +65,8 @@ li a:hover {
 nav {
     display: flex;
     width: 15%;
-    height: 100vh;
+    height: 10000vh;
+    overflow: hidden;
     border-right: solid 1px lightgrey;
 }
 
@@ -73,9 +78,10 @@ h1 {
 }
 
 main {
-    margin: 5% 20% 0 20%;
     width: 100%;
+    display: flex;
 }
+
 
 .Koni {
     padding-left: 2em;
@@ -83,4 +89,41 @@ main {
     justify-content: space-around;
     align-items: center;
     height: 60px;
+}
+
+article {
+    width: 50%;
+    margin: 5vh 25% 0 25%;
+}
+
+.content {
+    width: 100%;
+}
+
+.fixed {
+    position: fixed;
+}
+
+body {
+    /* background-image: url('../frontend/images/waves-top-view-water-sea-WallpaperMaiden_.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+.frosted::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    filter: blur(10px);
+    background: inherit;
+}
+
+.frosted {
+    background: inherit;
 }
