@@ -1,5 +1,5 @@
 FROM python:3.9
 COPY . .
-RUN pip install mysql-connector-python Flask
+RUN pip install mysql-connector-python Flask flask-cors
 EXPOSE 5678
 CMD ["python", "main.py"]
