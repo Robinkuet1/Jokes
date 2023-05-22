@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/KoniOnFire.jpg">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Jokes Home</title>
 
@@ -16,37 +18,55 @@
         }
     </style>      
 </head>
+
 <body>
-<header>
-    <ul>
-        <li>
-            <a href="index.html">Jokes</a>
-        </li>
-        <li>
-            <div>
-                <label for="search">Search Topics: </label>
-                <input id="search">
-                <script>
-                    $("#search").autocomplete({
-                        source: "https://jokesapi.robinkuet1.com/autocomplete/topics?category=",
-                        minLength: 1,
-                        select: function (event, ui) {
-                            console.log(ui.item.value);
-                        }
-                    });
-                </script>
-            </div>
-        </li>
-        <li>
-            <a href="">Register</a>
+    <header>
+        <h1 style="width: 20%;">Jokes</h1>
+        <div class="search-container" style="width: 60%;">
+            <input type="text" placeholder="Search..." id="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <script>
+            $("#search").autocomplete({
+                source: "https://jokesapi.robinkuet1.com/autocomplete/topics?category=",
+                    minLength: 1,
+                    select: function (event, ui) {
+                        console.log(ui.item.value);
+                    }
+                });
+            </script>
+
+        </div>
+        <div class="Koni">
             <a href="">Login</a>
-        </li>
-    </ul>
-    </div>
-</header>
-<main>
-</main>
-<footer>
-</footer>
+            <a href="">register</a>
+            <img src="../frontend/images/KoniOnFire.jpg" alt="Koni" class="Koni">
+        </div>
+    </header>
+    <main>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+        <article class="">
+            <div class="content">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed voluptatibus unde corporis
+                    necessitatibus adipisci consequatur ipsum voluptates, modi vitae beatae nisi recusandae nulla in
+                    temporibus tempora. Repellat quas omnis ipsam?
+                    </p> <br>
+                    <p>-- Dini Mueter</p>
+                </p>
+            </div>
+            <button fixed></button>
+        </article>
+    </main>
+    <footer>
+
+    </footer>
 </body>
+
 </html>
