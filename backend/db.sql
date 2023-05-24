@@ -37,6 +37,7 @@ create table joke
     CategoryId int          not null,
     UserId     int          not null,
     NSFW       tinyint(1)   null,
+    Date       datetime DEFAULT CURRENT_TIMESTAMP,
     constraint Joke_category_Id_fk
         foreign key (CategoryId) references category (Id),
     constraint Joke_user_Id_fk
