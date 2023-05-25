@@ -7,11 +7,11 @@ import random
 import json
 import requests
 
-def select(querry, size = 10):
+def select(querry, limit = 10, skip = 0):
     db = mysql.connector.connect(host = 'db', user = 'foo', password = 'bar', port = 3306, database = 'jokes')
     cursor = db.cursor()
-    cursor.execute(querry)
-    return cursor.fetchmany(size)
+    cursor.execute(querry+f" LIMIT {int(skip)}, {int(skip)+int(limit)}")
+    return cursor.fetchmany(int(limit))
 
 def insert(querry, values):
     db = mysql.connector.connect(host = 'db', user = 'foo', password = 'bar', port = 3306, database = 'jokes')
@@ -33,12 +33,35 @@ def hello_world():
 
 @app.route("/jokes")
 def jokes():
-    if(request.args.get('category')):
-        return "todo"
-    elif(request.args.get('id')):
-        return "todo"
-    result = sql("SELECT * FROM jokes")
+    category = request.args.get('category')
+    if(category == None or category == ""):
+        category = "%"
+    
+    limit = request.args.get('limit')
+    if(limit == None or limit == ""):
+        limit = "10"
+    
+    skip = request.args.get('skip')
+    if(skip == None or skip == ""):
+        skip = "0"
+
+
+    querry = '''
+    SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE FROM joke
+    LEFT OUTER JOIN category c on c.Id = joke.CategoryId
+    LEFT JOIN user u on u.Id = joke.UserId
+    cross join country c2 on u.CountryId = c2.Id
+    WHERE c.Name LIKE "{0}"
+    '''.format(category)
+
+    result = select(querry, limit, skip)
     return json.dumps(result)
+
+@app.route("/upvote")
+def upvote():
+    userId = request.args.get('userId')
+    userToken = request.args.get('userToken')
+    return ""
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
@@ -51,11 +74,16 @@ def autocompleteTopics():
         resultList.append(i[0])
     return json.dumps(resultList)
 
+
 @app.route("/register")
 def register():
     uname = request.args.get("username")
     pwd = request.args.get("password")
     nsfw = request.args.get("nsfw")
+
+    country = requests.get(f"http://ip-api.com/json/{request.remote_addr}").json()["countryCode"]
+    countryId = select(f"SELECT Id FROM country WHERE code = \"{country}\"")[0][0]
+
     if(uname == None or pwd == None or nsfw == None):
         return "Not all required parameters provided"
     token = sha256(uname + pwd + str(random.randint(10000000,99999999999)))
@@ -64,10 +92,9 @@ def register():
     exists = select(f"SELECT Id FROM user WHERE Username = '{uname}'")
     if(len(exists) != 0):
         return "User already exists"
-    countryCode = requests.get(f"http://ip-api.com/json/{request.remote_addr}").text
-    result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, 1, nsfw))
+    result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
     return str(result)
-
+    
 @app.route("/login")
 def login():
     uname = request.args.get("username")
@@ -79,5 +106,6 @@ def login():
     if(len(token) == 0):
         return "Unauthorized"
     return token[0][0]
+    
 
 app.run(host="0.0.0.0",port=5678)
