@@ -97,7 +97,7 @@ def autocompleteTopics():
     return json.dumps(resultList)
 
 @app.route("/autocomplete/users")
-def categories():
+def autocompleteUsers():
     searchParam = request.args.get("name")
     result = select(f"SELECT Username FROM user WHERE Username LIKE \"%{searchParam}%\"")
     resultList = []
