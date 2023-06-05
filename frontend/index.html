@@ -82,17 +82,25 @@
     <style>
         .sort{
             position: sticky;
-            bottom: 10px;
+            bottom: 0px;
             width: 70px;
             height: 25px;
         }
     </style>
     <div class="sort">
-        <select name="Sort by" id="cars">
-            <option value="new">Newest</option>
-            <option value="hot">Hottest</option>
+        <select name="Sort by" id="sort">
+            <option value="new">New</option>
+            <option value="hot">Hot</option>
             <option value="top">Top of All time</option>
+            <option value="rand">Random</option>
         </select>
+        <script>
+            document.getElementById("sort").value = jQuery.query.get("sort") ? jQuery.query.get("sort") : "new";
+
+            document.getElementById("sort").addEventListener("change", ()=>{
+                window.location.search = jQuery.query.set("sort", document.getElementById("sort").value);
+            });
+        </script>
     </div>
     <footer>
 
