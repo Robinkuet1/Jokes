@@ -6,7 +6,7 @@
         const container = document.getElementById("categories");
         const divElement = document.createElement("ul");
         divElement.innerHTML = `
-        <li><a href="#">${element[1]}</a></li>
+        <li><a href="index.html?category=${element[1]}">${element[1]}</a></li>
         `
         container.appendChild(divElement);
     });
