@@ -35,6 +35,7 @@ def createBotuser():
     botUsername = "bot"
     id = select(f"SELECT Id FROM user where Username = \"{botUsername}\"")
     if(len(id) == 0):
+
         insert("INSERT INTO user (Username, Password, NSFW, Token, CountryId) VALUES (%s,%s,%s,%s,%s)", (botUsername,"",True,"", 1))
         return select(f"SELECT Id FROM user where Username = \"{botUsername}\"")[0][0]
     else:
@@ -59,9 +60,18 @@ def createJoke(text, categoryId, userId, nsfw):
 botuser = createBotuser()
 total = 0
 
+countryFile = open("data/countries.csv")
+reader = csv.DictReader(countryFile)
+
+for i in reader:
+    code, name = i["\ufeffcountry;name"].split(";")
+    id = select(f"SELECT Id FROM country where code = '{code}'")
+    if(len(id) == 0):
+        insert("INSERT INTO country (CODE, Name) VALUE(%s, %s)", (code, name,))
+
 #programming
 programming = newCategory("Programming")
-pbar = tqdm(range(10), leave=True)
+pbar = tqdm(range(20), leave=True)
 pbar.set_description(f"Programming")
 for i in pbar:
     jokes = get("https://v2.jokeapi.dev/joke/Programming?amount=10")["jokes"]
@@ -78,7 +88,7 @@ for i in pbar:
 
 #dark
 dark = newCategory("Dark")
-pbar = tqdm(range(10), leave=True)
+pbar = tqdm(range(15), leave=True)
 pbar.set_description(f"Dark")
 for i in pbar:
     jokes = get("https://v2.jokeapi.dev/joke/Dark?amount=10")["jokes"]
@@ -95,7 +105,7 @@ for i in pbar:
 
 #chuck norris
 chuck = newCategory("Chuck Norris")
-pbar = tqdm(range(200), leave=True)
+pbar = tqdm(range(50), leave=True)
 pbar.set_description(f"Chuck Norris")
 for i in pbar:
     text = get("https://api.chucknorris.io/jokes/random")["value"]
