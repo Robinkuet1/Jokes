@@ -50,6 +50,9 @@ def categories():
     return json.dumps(result)
 
 
+
+
+
 @app.route("/jokes")
 def jokes():
     category = request.args.get('category')
@@ -63,6 +66,8 @@ def jokes():
     skip = request.args.get('skip')
     if(skip == None or skip == ""):
         skip = "0"
+
+    sort = request.args.get('sort')
 
 
     querry = '''
@@ -84,15 +89,21 @@ def upvote():
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
-    searchParam = request.args.get("category")
+    searchParam = request.args.get("name")
     result = select(f"SELECT Name FROM category WHERE Name LIKE \"%{searchParam}%\"")
-    maxResult = 50
     resultList = []
     for i in result:
-        maxResult += 1
         resultList.append(i[0])
     return json.dumps(resultList)
 
+@app.route("/autocomplete/users")
+def categories():
+    searchParam = request.args.get("name")
+    result = select(f"SELECT Username FROM user WHERE Username LIKE \"%{searchParam}%\"")
+    resultList = []
+    for i in result:
+        resultList.append(i[0])
+    return json.dumps(resultList)
 
 @app.route("/register")
 def register():

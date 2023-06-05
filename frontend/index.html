@@ -38,15 +38,6 @@
             <div class="search-container">
                 <input placeholder="Search..." id="search">
                 <button type="submit"><i class="fa fa-search"></i></button>
-                <script>
-                    $("#search").autocomplete({
-                        source: "https://jokesapi.robinkuet1.com/autocomplete/topics?category=",
-                        minLength: 1,
-                        select: function (event, ui) {
-                            console.log(ui.item.value);
-                        }
-                    });
-                </script>
             </div>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-3 col-sx-3">

@@ -2,13 +2,15 @@
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get("category");
     const sort = urlParams.get("sort")
+    const user = urlParams.get("user")
 
     let url = "https://jokesapi.robinkuet1.com/jokes?limit=100&"
     if(category)
         url += `category=${category}&`
+    if(user)
+        url += `user=${user}&`
     if(sort)
         url += `sort=${sort}&`
-
 
     const rawdata = await fetch(url)
     const data = await rawdata.json();
