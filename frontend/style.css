@@ -1,6 +1,35 @@
 * {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.content {
+    display: flex;
+    margin: 2em !important;
+    background-color: rgb(245, 245, 245);
+    border: solid 1px whitesmoke;
+    border-radius: 20px;
+    padding: 10px !important;
+    margin: 2em !important;
+}
+
+.ui-autocomplete {
+    width: 10px;
+    background-color: #fff;
+    border-end-end-radius: 20px;
+    border-end-start-radius: 20px;
+    padding: 10px !important;
+    margin: 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ui-autocomplete:hover {
+    color: #fff;
+}
+
+.ui-menu {
+    margin-left: 50px !important;
 }
 
 .search-container {
@@ -8,17 +37,20 @@
     align-items: center;
     background-color: #fff;
     border-radius: 20px;
-    padding: 10px;
-    margin: 8px;
+    padding: 10px !important;
+    margin: 8px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ui-autocomplete-input {
+    border: none;
+    width: 100%;
 }
 
 .search-container input[type="text"] {
     flex: 1;
     border: none;
     font-size: 16px;
-    padding: 10px;
-    margin: 8px;
     outline: none;
 }
 
@@ -27,24 +59,21 @@
     border: none;
     outline: none;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 10px !important;
 
 }
 
 header {
     display: flex;
     width: 100%;
-    border-bottom: solid 1px gray   ;
+    border-bottom: solid 1px gray;
     background-color: solid 1px lightgray;
     background-color: lightgray;
-    /* box-shadow: 0 4px 2px -2px lightgray; */
     height: 4em;
 }
 
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     width: 100%;
     background-color: #f1f1f1;
 }
@@ -52,11 +81,10 @@ ul {
 li a {
     display: block;
     color: #000;
-    padding: 8px 16px;
+    padding: 8px 16px !important;
     text-decoration: none;
 }
 
-/* Change the link color on hover */
 li a:hover {
     background-color: #555;
     color: white;
@@ -70,60 +98,31 @@ nav {
     border-right: solid 1px lightgrey;
 }
 
-h1 {
-    padding-left: 1.5em;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-}
-
 main {
     width: 100%;
-    display: flex;
+    display: flex !important;
 }
 
-
 .Koni {
-    padding-left: 2em;
+    padding-left: 1em !important;
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 60px;
 }
 
-article {
-    width: 50%;
-    margin: 5vh 25% 0 25%;
+.vote {
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.content {
-    width: 100%;
+.vote-container {
+    margin: 1em !important;
 }
 
-.fixed {
-    position: fixed;
-}
 
-body {
-    /* background-image: url('../frontend/images/waves-top-view-water-sea-WallpaperMaiden_.png');
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover; */
-}
-
-.frosted::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
-    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
-    filter: blur(10px);
-    background: inherit;
-}
-
-.frosted {
-    background: inherit;
+.text {
+    margin: 1em 1em 1em 0 !important;
 }
