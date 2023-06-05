@@ -26,16 +26,17 @@
         const userId = element[7];
         const countryName = element[8];
         const countryCode = String(element[9]);
+        const userUpVote = false;
+        const userDownVote = false;
 
         divElement.innerHTML = `
         <div>
             <div class="content">
                 <div>
                     <div class="vote-container">
-                        <img src="images/vote-icon.png" alt="" class="vote">
+                        <img src="images/${userUpVote ? "up-vote-icon.png" : "up-vote-icon-empty.png"}" alt="" class="vote">
                         <p class="vote">${upvotes}</p>
-                        <img src="images/down-vote-icon.png" alt="" class="vote">
-
+                        <img src="images/${userDownVote ? "down-vote-icon.png" : "down-vote-icon-empty.png"}" alt="" class="vote">
                     </div>
                 </div>
                 <div>
