@@ -142,7 +142,7 @@ def login():
     result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}' AND Password = '{pwd}'")
     if(len(result) == 0):
         return "Unauthorized", 401
-    return result[0]
+    return result
     
 @app.route("/isNSFW")
 def isNSFW():
