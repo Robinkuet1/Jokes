@@ -1,0 +1,17 @@
+services:
+  db:
+    
+
+  api: 
+    build: ./backend
+    ports:
+      - "5678:5678"
+    links:
+      - "database:db"
+    
+  web:
+    image: nginx
+    ports:
+      - "5679:80"
+    volumes:
+      - "./frontend:/usr/share/nginx/html:ro"
