@@ -10,7 +10,9 @@
     if(user)
         url += `user=${user}&`
     if(sort)
-        url += `sort=${sort}&`
+        url += `order=${sort}`
+    console.log(url)
+
 
     const rawdata = await fetch(url)
     const data = await rawdata.json();

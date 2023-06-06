@@ -67,8 +67,14 @@ def jokes():
     if(skip == None or skip == ""):
         skip = "0"
 
-    sort = request.args.get('sort')
+    order = request.args.get('order')
+    if(order == None or order == ""):
+        order = "top"
 
+    if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
+    if order == "rand": order = "RAND()"
+    if order == "new": order = "joke.Date"
+    if order == "hot": order = "((SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0))/((DATEDIFF(CURRENT_DATE, joke.Date)+1)/7) DESC"
 
     querry = '''
     SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE FROM joke
@@ -76,7 +82,8 @@ def jokes():
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
     WHERE c.Name LIKE "{0}"
-    '''.format(category)
+    ORDER BY {1}
+    '''.format(category, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
