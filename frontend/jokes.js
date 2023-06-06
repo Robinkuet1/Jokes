@@ -1,12 +1,12 @@
-(async()=>{
+(async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get("category");
     const sort = urlParams.get("sort")
 
     let url = "https://jokesapi.robinkuet1.com/jokes?limit=100&"
-    if(category)
+    if (category)
         url += `category=${category}&`
-    if(sort)
+    if (sort)
         url += `sort=${sort}&`
 
 
@@ -40,13 +40,16 @@
                     </div>
                 </div>
                 <div>
-                <div>
-                    <p class="text">
-                    ${text}
-                    </p>
-                    <br>
-                </div>
-                <div>by ${username} <img width=25 height=20 alt="${countryName}" src="https://flagicons.lipis.dev/flags/4x3/${countryCode.toLowerCase()}.svg"/> in ${categoryName} on ${date}</div>
+                    <div style="display: flex;" class="joke-header">
+                        <div style="padding-right: 0.4em !important; font-size: 0.9em">c/${categoryName} •</div><div style="font-size: 0.7em">Posted by ${username}  </div><img class="joke-header" width="auto" height="12px" style="margin: 0 3px ! important" alt="${countryName}" src="https://flagicons.lipis.dev/flags/4x3/${countryCode.toLowerCase()}.svg"/><div  style="font-size: 0.7em">on ${date}</div>
+                    </div>
+                    <div>
+                        <p class="text">
+                        ${text}
+                        </p>
+                        <br>
+                    </div>
+                    <!--  joke-header<div>by ${username} <img width=25 height=20 alt="${countryName}" src="https://flagicons.lipis.dev/flags/4x3/${countryCode.toLowerCase()}.svg"/> in ${categoryName} on ${date}</div> -->
                 </div>
             </div>
         </div>
