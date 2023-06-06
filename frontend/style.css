@@ -14,6 +14,18 @@
     margin: 2em !important;
 }
 
+#search {
+    padding: 10px !important;
+    border-radius: 20px;
+    border: 0;
+    outline: none;
+}
+
+#search:not(:placeholder-shown) {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
 .ui-autocomplete {
     width: 10px;
     background-color: #fff;
@@ -37,7 +49,6 @@
     align-items: center;
     background-color: #fff;
     border-radius: 20px;
-    padding: 10px !important;
     margin: 8px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
