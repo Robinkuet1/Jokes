@@ -73,7 +73,7 @@ def jokes():
 
     if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
     if order == "rand": order = "RAND()"
-    if order == "new": order = "joke.Date"
+    if order == "new": order = "joke.Date DESC"
     if order == "hot": order = "((SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0))/((DATEDIFF(CURRENT_DATE, joke.Date)+1)/7) DESC"
 
     querry = '''
