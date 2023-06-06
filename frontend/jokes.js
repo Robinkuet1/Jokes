@@ -11,6 +11,9 @@
         url += `user=${user}&`
     if (sort)
         url += `order=${sort}`
+    else
+        url += `order=new`
+        
     console.log(url)
 
 
