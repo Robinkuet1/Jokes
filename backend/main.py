@@ -139,10 +139,10 @@ def login():
     exists = select(f"SELECT Id FROM user WHERE Username = '{uname}'")
     if(len(exists) == 0):
         return "User not found", 404
-    token = select(f"SELECT Token FROM user WHERE Username = '{uname}' AND Password = '{pwd}'")
-    if(len(token) == 0):
+    result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}' AND Password = '{pwd}'")
+    if(len(result) == 0):
         return "Unauthorized", 401
-    return token[0][0]
+    return result[0]
     
 @app.route("/isNSFW")
 def isNSFW():

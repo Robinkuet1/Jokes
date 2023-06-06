@@ -30,7 +30,7 @@
         const userId = element[7];
         const countryName = element[8];
         const countryCode = String(element[9]);
-        const userUpVote = true;
+        const userUpVote = false;
         const userDownVote = false;
         divElement.addEventListener
         divElement.innerHTML = `
