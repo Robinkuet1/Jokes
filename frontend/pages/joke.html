@@ -37,12 +37,13 @@
         <div class="col-lg-8 col-md-7 col-sm-8 col-sx-7">
             <div class="search-container">
                 <input placeholder="Search..." id="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
             </div>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-3 col-sx-3">
             <div class="Koni">
-                <a href="pages/login.html">Login</a>
-                <a href="pages/register.html">Register</a>
+                <a href="">Login</a>
+                <a href="">Register</a>
                 <img src="../frontend/images/KoniOnFire.jpg" alt="Koni" class="Koni">
             </div>
         </div>
@@ -56,11 +57,12 @@
         </nav>
         <div class="col-lg-10, col-md-10 col-sm-9 col-xs-8">
             <div class="container-fluid">
-
                 <article class="row">
                     <div class="col-lg-3, col-md-2 col-sm-1 col-xs-0"></div>
                     <div class="col-lg-6, col-md-8 col-sm-10 col-xs-12">
-                        <div id="serb"></div>
+                        <div id="serb">
+
+                        </div>
                     </div>
                     <div class="col-lg-3, col-md-2 col-sm-1 col-xs-0"></div>
                 </article>
@@ -70,7 +72,7 @@
     </main>
 
     <style>
-        .sort {
+        .sort{
             position: sticky;
             bottom: 0px;
             width: 70px;
@@ -79,10 +81,10 @@
     </style>
     <div class="sort">
         <select name="Sort by" id="sort">
-            <option value="new">Sort by: New</option>
-            <option value="hot">Sort by: Hot</option>
-            <option value="top">Sort by: Top</option>
-            <option value="rand">Sort by: Random</option>
+            <option value="new">New</option>
+            <option value="hot">Hot</option>
+            <option value="top">Top of All time</option>
+            <option value="rand">Random</option>
         </select>
         <script>
             document.getElementById("sort").value = jQuery.query.get("sort") ? jQuery.query.get("sort") : "new";

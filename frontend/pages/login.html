@@ -46,23 +46,41 @@
                             return hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
                         }
 
-                        document.getElementById("login").addEventListener("click", async () => {
+                        async function login() {
                             const uname = document.getElementById("uname").value;
-                            const pwd = await sha256(document.getElementById("pwd").value);
-
-                            console.log(uname);
-                            console.log(pwd);
+                            //const pwd = await sha256(document.getElementById("pwd").value);
+                            const pwd = document.getElementById("pwd").value;
 
                             const response = await fetch(`https://jokesapi.robinkuet1.com/login?username=${uname}&password=${pwd}`);
                             console.log("res: ", response)
-                            if(response.ok){
-                                const token = await response.text();
+                            if (response.ok) {
+                                const data = await response.json();
+                                const token = data[0][1];
+                                const id = data[0][0];
+
+                                document.getElementById("error").innerText = "";
                                 document.getElementById("success").innerText = "successfully logged in";
 
-                                
-                            }else{
+                                localStorage.id = id;
+                                localStorage.token = token;
+
+                                window.location = "../";
+                            } else {
                                 document.getElementById("error").innerText = await response.text();
-                            } 
+                                document.getElementById("success").innerText = "";
+                            }
+                        }
+
+                        document.addEventListener("keypress", async e => {
+                            if (e.key == "Enter") {
+                                await login();
+                            }
+                        })
+
+
+
+                        document.getElementById("login").addEventListener("click", async () => {
+                            await login();
                         });
                     </script>
                 </div>

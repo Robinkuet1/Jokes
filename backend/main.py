@@ -31,6 +31,28 @@ CORS(app)
 def hello_world():
     return "test"
 
+@app.route("/categories")
+def categories():
+    limit = request.args.get('limit')
+    if(limit == None or limit == ""):
+        limit = "10"
+    
+    skip = request.args.get('skip')
+    if(skip == None or skip == ""):
+        skip = "0"
+
+
+    querry = '''
+    SELECT * FROM category
+    '''
+
+    result = select(querry, limit, skip)
+    return json.dumps(result)
+
+
+
+
+
 @app.route("/jokes")
 def jokes():
     category = request.args.get('category')
@@ -45,6 +67,14 @@ def jokes():
     if(skip == None or skip == ""):
         skip = "0"
 
+    order = request.args.get('order')
+    if(order == None or order == ""):
+        order = "top"
+
+    if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
+    if order == "rand": order = "RAND()"
+    if order == "new": order = "joke.Date"
+    if order == "hot": order = "((SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0))/((DATEDIFF(CURRENT_DATE, joke.Date)+1)/7) DESC"
 
     querry = '''
     SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE FROM joke
@@ -52,7 +82,8 @@ def jokes():
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
     WHERE c.Name LIKE "{0}"
-    '''.format(category)
+    ORDER BY {1}
+    '''.format(category, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
@@ -65,15 +96,21 @@ def upvote():
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
-    searchParam = request.args.get("category")
+    searchParam = request.args.get("name")
     result = select(f"SELECT Name FROM category WHERE Name LIKE \"%{searchParam}%\"")
-    maxResult = 50
     resultList = []
     for i in result:
-        maxResult += 1
         resultList.append(i[0])
     return json.dumps(resultList)
 
+@app.route("/autocomplete/users")
+def autocompleteUsers():
+    searchParam = request.args.get("name")
+    result = select(f"SELECT Username FROM user WHERE Username LIKE \"%{searchParam}%\"")
+    resultList = []
+    for i in result:
+        resultList.append(i[0])
+    return json.dumps(resultList)
 
 @app.route("/register")
 def register():
@@ -101,11 +138,20 @@ def login():
     pwd = request.args.get("password")
     exists = select(f"SELECT Id FROM user WHERE Username = '{uname}'")
     if(len(exists) == 0):
-        return "User not found"
-    token = select(f"SELECT Token FROM user WHERE Username = '{uname}' AND Password = '{pwd}'")
-    if(len(token) == 0):
-        return "Unauthorized"
-    return token[0][0]
+        return "User not found", 404
+    result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}' AND Password = '{pwd}'")
+    if(len(result) == 0):
+        return "Unauthorized", 401
+    return result[0]
+    
+@app.route("/isNSFW")
+def isNSFW():
+    uname = request.args.get("username")
+    nsfw = select(f"SELECT NSFW FROM user WHERE Username = '{uname}'")
+    print(nsfw)
+    if(len(nsfw) != 0):
+        return str(nsfw[0][0])
+    return "0"
     
 
 app.run(host="0.0.0.0",port=5678)
