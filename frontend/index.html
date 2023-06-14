@@ -31,7 +31,9 @@
         <div class="col-lg-2 col-md-2 col-sm-2 col-sx-3">
             <div
                 style=" display: flex; justify-content: flex-start; align-items: center;  height: 100%; padding-left: 2em !important;">
-                <a href="index.html"><h1>Jokes</h1></a>
+                <a href="index.html">
+                    <h1>Jokes</h1>
+                </a>
             </div>
         </div>
         <div class="col-lg-8 col-md-7 col-sm-8 col-sx-7">
@@ -70,12 +72,6 @@
     </main>
 
     <style>
-        .sort {
-            position: sticky;
-            bottom: 0px;
-            width: 70px;
-            height: 25px;
-        }
     </style>
     <div class="sort">
         <select name="Sort by" id="sort">
@@ -87,10 +83,13 @@
         <script>
             document.getElementById("sort").value = jQuery.query.get("sort") ? jQuery.query.get("sort") : "new";
 
-            document.getElementById("sort").addEventListener("change", ()=>{
+            document.getElementById("sort").addEventListener("change", () => {
                 window.location.search = jQuery.query.set("sort", document.getElementById("sort").value);
             });
         </script>
+    </div>
+    <div class="add-joke">
+        <input type="image" style="height: 70px; width: auto;" id="myimage" src="images/plus_PNG97.png" />
     </div>
     <footer>
 

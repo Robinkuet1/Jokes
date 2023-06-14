@@ -4,11 +4,15 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    background-color: #40514E;
+}
+
 .content {
     display: flex;
     margin: 2em !important;
-    background-color: rgb(245, 245, 245);
-    border: solid 1px whitesmoke;
+    background-color: #F1F6F9;
+    border: solid 1px #E4F9F5;
     border-radius: 20px;
     padding: 10px !important;
     margin: 2em !important;
@@ -78,7 +82,6 @@ header {
     display: flex;
     width: 100%;
     border-bottom: solid 1px gray;
-    background-color: solid 1px lightgray;
     background-color: lightgray;
     height: 4em;
 }
@@ -97,8 +100,8 @@ li a {
 }
 
 li a:hover {
-    background-color: #555;
-    color: white;
+    background-color: #E4F9F5;
+    color: #E4F9F5;
 }
 
 nav {
@@ -106,6 +109,7 @@ nav {
     width: 15%;
     height: 10000vh;
     overflow: hidden;
+    background-color: #E4F9F5;
     border-right: solid 1px lightgrey;
 }
 
@@ -188,34 +192,22 @@ button:hover {
     border-radius: 34px;
 }
 
-
-
-/* input-field */
-
-.s006 form .inner-form {
-    width: 100%;
-    margin-bottom: 17px;
+#myimage {
+    height: 200px;
+    width: 200px;
 }
 
-s006 {
-    min-height: 100vh;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-align: center;
-    align-items: center;
-    font-family: poppins,sans-serif;
-    background: url(../images/Searchs_006.png);
-    background-size: cover;
-    background-position: center center;
-    padding: 15px;
+.sort {
+    position: sticky;
+    bottom: 0px;
+    width: 70px;
+    height: 25px;
 }
 
-
-.s006 form .inner-form .input-field {
-    height: 70px;
-    width: 100%;
-    position: relative;
+.add-joke {
+    position: sticky;
+    bottom: 14vh;
+    left: 90vw;
+    width: 70px;
+    height: 25px;
 }
-
