@@ -11,15 +11,24 @@
 </head>
 
 <body>
-    <header>
-        <h1 style="width: 20%;">Jokes</h1>
-        <div class="search-container" style="width: 60%;">
-            <input type="text" placeholder="Search...">
-            <button type="submit"><i class="fa fa-search"></i></button>
+    <header class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-sx-3">
+            <div
+                style=" display: flex; justify-content: flex-start; align-items: center;  height: 100%; padding-left: 2em !important;">
+                <a href="index.html"><h1>Jokes</h1></a>
+            </div>
         </div>
-        <div class="Koni">
-            <a href="register.html">Register</a>
-            <img src="../frontend/images/KoniOnFire.jpg" alt="Koni">
+        <div class="col-lg-8 col-md-7 col-sm-8 col-sx-7">
+            <div class="search-container">
+                <input placeholder="Search..." id="search">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-sx-3">
+            <div class="Koni">
+                <a href="pages/login.html">Login</a>
+                <a href="pages/register.html">Register</a>
+                <img src="../frontend/images/KoniOnFire.jpg" alt="Koni" class="Koni">
+            </div>
         </div>
     </header>
     <main class="center">
