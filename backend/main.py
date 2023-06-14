@@ -73,7 +73,7 @@ def jokes():
 
     if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
     if order == "rand": order = "RAND()"
-    if order == "new": order = "joke.Date"
+    if order == "new": order = "joke.Date DESC"
     if order == "hot": order = "((SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0))/((DATEDIFF(CURRENT_DATE, joke.Date)+1)/7) DESC"
 
     querry = '''
@@ -122,15 +122,15 @@ def register():
     countryId = select(f"SELECT Id FROM country WHERE code = \"{country}\"")[0][0]
 
     if(uname == None or pwd == None or nsfw == None):
-        return "Not all required parameters provided"
+        return "Not all required parameters provided", 401
     token = sha256(uname + pwd + str(random.randint(10000000,99999999999)))
     if(uname == "" or pwd == ""):
-        return "Error"
+        return "Error", 401
     exists = select(f"SELECT Id FROM user WHERE Username = '{uname}'")
     if(len(exists) != 0):
-        return "User already exists"
+        return "User already exists", 404
     result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
-    return str(result)
+    return str(result), 200
     
 @app.route("/login")
 def login():
@@ -142,7 +142,7 @@ def login():
     result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}' AND Password = '{pwd}'")
     if(len(result) == 0):
         return "Unauthorized", 401
-    return result[0]
+    return result
     
 @app.route("/isNSFW")
 def isNSFW():

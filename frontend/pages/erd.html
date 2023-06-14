@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/KoniOnFire.jpg">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+    <link rel="stylesheet" href="../libs/jquery-ui-1.13.2/jquery-ui.css">
+    <script src="../libs/jquery-3.6.4.js"></script>
+    <script src="../libs/jquery-ui-1.13.2/jquery-ui.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Jokes Home</title>
+
+    <link rel="stylesheet" href="../libs/jquery-ui-1.13.2/jquery-ui.css">
+    <script src="../libs/jquery-3.6.4.js"></script>
+    <script src="../libs/jquery-ui-1.13.2/jquery-ui.js"></script>
+    <style>
+        .ui-autocomplete-loading {
+            background: white url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/images/ui-anim_basic_16x16.gif") right center no-repeat;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <header class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-sx-3">
+            <div
+                style=" display: flex; justify-content: flex-start; align-items: center;  height: 100%; padding-left: 2em !important;">
+                <a href="../index.html">
+                    <h1>Jokes</h1>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-7 col-sm-8 col-sx-7">
+            <div class="search-container">
+                <input placeholder="Search..." id="search">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 col-sx-3">
+            <div class="Koni">
+                <a href="../pages/login.html">Login</a>
+                <a href="../pages/register.html">Register</a>
+                <img src="../../frontend/images/KoniOnFire.jpg" alt="Koni" class="Koni">
+            </div>
+        </div>
+    </header>
+    <main class="row">
+        <div id="jokes"></div>
+
+        <div class="col-lg-10, col-md-10 col-sm-9 col-xs-8">
+            <div class="container-fluid">
+
+                <article class="row article-row">
+                    <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 article-content">
+                        <h1 id="erd">ERD</h1>
+                        <img src="..\images\erd.png" class="erd">
+                    </div>
+                    <div class="erklärung article-content">
+                        <h2>Unsere Tabellen:</h2>
+                        <h5>Vote:</h5>
+                        <p>in der Vote Tabelle werden die Votes eines Witzes gespeichert. Die Vote Tabelle ist mit dem User verbunden, welcher einen Vote macht, und mit dem Joke, welcher bewertet wurde.</p>
+                        <h5>Joke:</h5>
+                        <p>In der Joke Tabelle wird der Witz gespeichert. Ebenfalls wird das Datum, wann der Witz erstellt wurde, und die Altersbeschränkung gespeichert. Joke ist mit User und Category verbunden.</p>
+                        <h5>User:</h5>
+                        <p>Die Tabelle "User" repräsentiert die Benutzer im System. Sie enthält Informationen wie den Benutzernamen, das Passwort, das Land und die NSFW (Not Safe for Work) Einstellung. Jeder Benutzer hat eine eindeutige ID.</p>
+                        <h5>Comment:</h5>
+                        <p>Die Tabelle "Comment" speichert Kommentare zu Witzen. Jeder Kommentar ist über den Fremdschlüssel "JokeId" mit einem bestimmten Witz verknüpft.</p>
+                        <h5>Category:</h5>
+                        <p>Die Tabelle "Category" enthält verschiedene Kategorien oder Tags, die Witzen zugeordnet werden können. Sie hilft bei der Organisation und Klassifizierung von Witzen nach Themen oder Kategorien.</p>
+                        <h5>Country:</h5>
+                        <p>Die Tabelle "Country" enthält Informationen über verschiedene Länder. Sie umfasst den Ländernamen und den zweistelligen Ländercode.</p>
+                    </div>
+                    <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                </article>                
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>
