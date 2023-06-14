@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../frontend/images/KoniOnFire.jpg">
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <title>Register</title>
+    <title>Login</title>
 </head>
 
 <body>
@@ -18,14 +18,14 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </div>
         <div class="Koni">
-            <a href="register.html">Login</a>
+            <a href="login.html">Login</a>
             <img src="../frontend/images/KoniOnFire.jpg" alt="Koni">
         </div>
     </header>
     <main class="center">
         <div>
             <div class="title">
-                <h1>Register</h1>
+                <h1>register</h1>
             </div>
             <div class="container">
                 <div>
@@ -35,7 +35,7 @@
                     <label for="psw"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="psw" id="pwd" required>
 
-                    <button id="login">Login</button>
+                    <button id="register">register</button>
                     <p id="error" style="color:red;"></p>
                     <p id="success" style="color:green;"></p>
                     <script>
@@ -46,23 +46,39 @@
                             return hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
                         }
 
-                        document.getElementById("login").addEventListener("click", async () => {
+                        async function register() {
                             const uname = document.getElementById("uname").value;
-                            const pwd = await sha256(document.getElementById("pwd").value);
+                            //const pwd = await sha256(document.getElementById("pwd").value);
+                            const pwd = document.getElementById("pwd").value;
 
-                            console.log(uname);
-                            console.log(pwd);
-
-                            const response = await fetch(`https://jokesapi.robinkuet1.com/login?username=${uname}&password=${pwd}`);
+                            const response = await fetch(`https://jokesapi.robinkuet1.com/register?username=${uname}&password=${pwd}`);
                             console.log("res: ", response)
-                            if(response.ok){
-                                const token = await response.text();
-                                document.getElementById("success").innerText = "successfully logged in";
+                            if (response.ok) {
+                                const data = await response.json();
+                                const token = data[0][1];
+                                const id = data[0][0];
 
-                                
-                            }else{
+                                document.getElementById("error").innerText = "";
+                                document.getElementById("success").innerText = "successfully logged in";
+ 
+                                localStorage.id = id;
+                                localStorage.token = token;
+
+                                window.location = "../";
+                            } else {
                                 document.getElementById("error").innerText = await response.text();
-                            } 
+                                document.getElementById("success").innerText = "";
+                            }
+                        }
+
+                        document.addEventListener("keypress", async e => {
+                            if (e.key == "Enter") {
+                                await register();
+                            }
+                        });
+
+                        document.getElementById("register").addEventListener("click", async () => {
+                            await register();
                         });
                     </script>
                 </div>
