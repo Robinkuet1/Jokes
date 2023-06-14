@@ -122,15 +122,15 @@ def register():
     countryId = select(f"SELECT Id FROM country WHERE code = \"{country}\"")[0][0]
 
     if(uname == None or pwd == None or nsfw == None):
-        return "Not all required parameters provided"
+        return "Not all required parameters provided", 401
     token = sha256(uname + pwd + str(random.randint(10000000,99999999999)))
     if(uname == "" or pwd == ""):
-        return "Error"
+        return "Error", 401
     exists = select(f"SELECT Id FROM user WHERE Username = '{uname}'")
     if(len(exists) != 0):
-        return "User already exists"
+        return "User already exists", 404
     result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
-    return str(result)
+    return str(result), 200
     
 @app.route("/login")
 def login():
