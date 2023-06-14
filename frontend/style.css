@@ -100,8 +100,8 @@ li a {
 }
 
 li a:hover {
-    background-color: #E4F9F5;
-    color: #E4F9F5;
+    background-color: lightgray;
+    color: #000000;
 }
 
 nav {
