@@ -93,6 +93,8 @@ def jokes():
     ORDER BY {4}
     '''.format(userVoteQuery ,category, userId, user, order)
 
+    return querry
+
     result = select(querry, limit, skip)
     return json.dumps(result)
 
