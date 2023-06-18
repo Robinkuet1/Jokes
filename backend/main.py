@@ -75,6 +75,7 @@ def jokes():
     userId = request.args.get('userId')
     if(userId == None or userId == ""):
         userId = "%"
+        userVoteQuery = f"(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=1) as \"userUpvote\", (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=0) as \"userDownvote\""
 
     if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
     if order == "rand": order = "RAND()"
@@ -82,13 +83,15 @@ def jokes():
     if order == "hot": order = "((SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0))/((DATEDIFF(CURRENT_DATE, joke.Date)+1)/7) DESC"
 
     querry = '''
-    SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE FROM joke
+    SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE 
+    {0}
+    FROM joke
     LEFT OUTER JOIN category c on c.Id = joke.CategoryId
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
-    WHERE c.Name LIKE "{0}" AND u.Id LIKE "{1}" AND u.Username LIKE "{2}"
-    ORDER BY {3}
-    '''.format(category, userId, user, order)
+    WHERE c.Name LIKE "{1}" AND u.Id LIKE "{2}" AND u.Username LIKE "{3}"
+    ORDER BY {4}
+    '''.format( ,category, userId, user, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
@@ -104,7 +107,11 @@ def upvote():
     if not authorized:
         return str("Unautorized"), 401
 
-    #result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
+    insert("DELETE FROM vote WHERE UserId = %s AND JokeId = %s", (userId, jokeId))
+
+    if up != None and up != "":
+        insert("INSERT INTO vote (UserId, JokeId, Up) VALUES (%s, %s, %s)", (userId, jokeId, up))
+
     return str(authorized), 200
 
 @app.route("/autocomplete/topics")
