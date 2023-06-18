@@ -100,7 +100,7 @@ def upvote():
     userToken = request.args.get('userToken')
     up = request.args.get('up')
 
-    authorized = len(select(f"SELECT * FROM User WHERE Id = \"{userId}\" AND Token = \"{userToken}\""))
+    authorized = len(select(f"SELECT * FROM user WHERE Id = \"{userId}\" AND Token = \"{userToken}\""))
     print(authorized)
 
     #result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
