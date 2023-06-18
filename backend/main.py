@@ -50,9 +50,6 @@ def categories():
     return json.dumps(result)
 
 
-
-
-
 @app.route("/jokes")
 def jokes():
     category = request.args.get('category')
@@ -71,6 +68,14 @@ def jokes():
     if(order == None or order == ""):
         order = "top"
 
+    user = request.args.get('user')
+    if(user == None or user == ""):
+        user = "%"
+
+    userId = request.args.get('userId')
+    if(userId == None or userId == ""):
+        userId = "%"
+
     if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
     if order == "rand": order = "RAND()"
     if order == "new": order = "joke.Date DESC"
@@ -81,18 +86,25 @@ def jokes():
     LEFT OUTER JOIN category c on c.Id = joke.CategoryId
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
-    WHERE c.Name LIKE "{0}"
-    ORDER BY {1}
-    '''.format(category, order)
+    WHERE c.Name LIKE "{0}" AND u.Id LIKE {1} AND u.Username LIKE {2}
+    ORDER BY {3}
+    '''.format(category, userId, user, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
 
 @app.route("/upvote")
 def upvote():
+    jokeId = request.args.get('jokeId')
     userId = request.args.get('userId')
     userToken = request.args.get('userToken')
-    return ""
+    up = request.args.get('up')
+
+    authorized = len(select(f"SELECT * FROM User WHERE Id = \"{userId}\" AND Token = \"{userToken}\""))
+    print(authorized)
+
+    #result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
+    return str("test"), 200
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
