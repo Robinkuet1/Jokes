@@ -87,26 +87,36 @@
         const downvoteIcon = "images/down-vote-icon.png";
         const downvoteIconEmpty = "images/down-vote-icon-empty.png";
 
-        document.getElementById(`upvote${id}`).addEventListener("click", function () {
+        document.getElementById(`upvote${id}`).addEventListener("click", async function () {
             if (checkLogin()) {
                 if (String(document.getElementById(`upvote${id}`).src).includes("empty")) {
                     document.getElementById(`upvote${id}`).src = upvoteIcon;
                     document.getElementById(`downvote${id}`).src = downvoteIconEmpty;
+
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}?up=1`);
                 }
-                else
+                else{
                     document.getElementById(`upvote${id}`).src = upvoteIconEmpty;
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}`);
+                }
                 console.log("upvote");
             }
         });
 
-        document.getElementById(`downvote${id}`).addEventListener("click", function () {
+        document.getElementById(`downvote${id}`).addEventListener("click", async function () {
             if (checkLogin()) {
                 if (String(document.getElementById(`downvote${id}`).src).includes("empty")) {
                     document.getElementById(`downvote${id}`).src = downvoteIcon;
                     document.getElementById(`upvote${id}`).src = upvoteIconEmpty;
+
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}?up=0`);
                 }
                 else
+                {
                     document.getElementById(`downvote${id}`).src = downvoteIconEmpty;
+
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}`);
+                }   
                 console.log("downvote");
             }
         });
