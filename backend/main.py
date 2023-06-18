@@ -90,7 +90,7 @@ def jokes():
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
     WHERE c.Name LIKE "{1}" AND u.Username LIKE "{2}"
-    ORDER BY {4}
+    ORDER BY {3}
     '''.format(userVoteQuery ,category, user, order)
 
     result = select(querry, limit, skip)
