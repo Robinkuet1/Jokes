@@ -14,9 +14,9 @@
         url += `userId=${localStorage.id}&`
     
     if (sort)
-        url += `order=${sort}`
+        url += `&order=${sort}`
     else
-        url += `order=new`
+        url += `&order=new`
         
     console.log(url)
 
