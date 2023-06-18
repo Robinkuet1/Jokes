@@ -104,7 +104,7 @@ def upvote():
     print(authorized)
 
     #result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
-    return str("test"), 200
+    return str(authorized), 200
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
