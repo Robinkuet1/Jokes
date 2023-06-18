@@ -73,6 +73,7 @@ def jokes():
         user = "%"
 
     userId = request.args.get('userId')
+    userVoteQuery = ""
     if(userId == None or userId == ""):
         userId = "%"
         userVoteQuery = f"(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=1) as \"userUpvote\", (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=0) as \"userDownvote\""
@@ -91,7 +92,7 @@ def jokes():
     cross join country c2 on u.CountryId = c2.Id
     WHERE c.Name LIKE "{1}" AND u.Id LIKE "{2}" AND u.Username LIKE "{3}"
     ORDER BY {4}
-    '''.format( ,category, userId, user, order)
+    '''.format(userVoteQuery ,category, userId, user, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
