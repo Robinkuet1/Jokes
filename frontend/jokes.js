@@ -93,7 +93,7 @@
                     document.getElementById(`upvote${id}`).src = upvoteIcon;
                     document.getElementById(`downvote${id}`).src = downvoteIconEmpty;
 
-                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}?up=1`);
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}&up=1`);
                 }
                 else{
                     document.getElementById(`upvote${id}`).src = upvoteIconEmpty;
@@ -109,7 +109,7 @@
                     document.getElementById(`downvote${id}`).src = downvoteIcon;
                     document.getElementById(`upvote${id}`).src = upvoteIconEmpty;
 
-                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}?up=0`);
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}&up=0`);
                 }
                 else
                 {
