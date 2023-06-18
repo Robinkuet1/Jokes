@@ -89,9 +89,9 @@ def jokes():
     LEFT OUTER JOIN category c on c.Id = joke.CategoryId
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
-    WHERE c.Name LIKE "{1}" AND u.Id LIKE "{2}" AND u.Username LIKE "{3}"
+    WHERE c.Name LIKE "{1}" AND u.Username LIKE "{2}"
     ORDER BY {4}
-    '''.format(userVoteQuery ,category, userId, user, order)
+    '''.format(userVoteQuery ,category, user, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
