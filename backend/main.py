@@ -151,7 +151,7 @@ def register():
         return "User already exists", 404
     insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
     
-    result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}'")
+    result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}'")[0]
     return str(result), 200
     
 @app.route("/login")
