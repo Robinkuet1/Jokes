@@ -9,6 +9,10 @@
         url += `category=${category}&`
     if (user)
         url += `user=${user}&`
+
+    if(localStorage.id)
+        url += `userId=${localStorage.id}`
+    
     if (sort)
         url += `order=${sort}`
     else
@@ -33,8 +37,14 @@
         const userId = element[7];
         const countryName = element[8];
         const countryCode = String(element[9]);
-        const userUpVote = false;
-        const userDownVote = false;
+        let userUpVote = false;
+        let userDownVote = false;
+
+        if(localStorage.id){
+            userUpVote = element[10];
+            userDownVote = element[11];
+        }
+
         divElement.addEventListener
         divElement.innerHTML = `
         <div>
