@@ -74,7 +74,7 @@ def jokes():
 
     userId = request.args.get('userId')
     userVoteQuery = ""
-    if(userId == None or userId == ""):
+    if(userId != None and userId != ""):
         userVoteQuery = f", (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=1) as \"userUpvote\", (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=0) as \"userDownvote\""
 
     if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
