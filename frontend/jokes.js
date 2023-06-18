@@ -11,7 +11,7 @@
         url += `user=${user}&`
 
     if(localStorage.id)
-        url += `userId=${localStorage.id}`
+        url += `userId=${localStorage.id}&`
     
     if (sort)
         url += `order=${sort}`
@@ -37,8 +37,8 @@
         const userId = element[7];
         const countryName = element[8];
         const countryCode = String(element[9]);
-        let userUpVote = false;
-        let userDownVote = false;
+        let userUpVote = 0;
+        let userDownVote = 0;
 
         if(localStorage.id){
             userUpVote = element[10];
