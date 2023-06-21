@@ -50,9 +50,6 @@ def categories():
     return json.dumps(result)
 
 
-
-
-
 @app.route("/jokes")
 def jokes():
     category = request.args.get('category')
@@ -71,28 +68,51 @@ def jokes():
     if(order == None or order == ""):
         order = "top"
 
+    user = request.args.get('user')
+    if(user == None or user == ""):
+        user = "%"
+
+    userId = request.args.get('userId')
+    userVoteQuery = ""
+    if(userId != None and userId != ""):
+        userVoteQuery = f", (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=1) as \"userUpvote\", (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND UserId = {userId} AND Up=0) as \"userDownvote\""
+
     if order == "top": order = "(SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0) DESC"
     if order == "rand": order = "RAND()"
     if order == "new": order = "joke.Date DESC"
     if order == "hot": order = "((SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 1) - (SELECT COUNT(*) FROM vote WHERE JokeId = joke.Id AND Up = 0))/((DATEDIFF(CURRENT_DATE, joke.Date)+1)/7) DESC"
 
     querry = '''
-    SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE FROM joke
+    SELECT joke.Id, joke.Text, DATE_FORMAT(joke.Date,'%d %M %Y')  as date, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 1) as upvotes, (SELECT count(*) FROM vote WHERE JokeId = joke.Id AND up = 0) as downvotes, c.Name, u.Username, u.Id, c2.Name, c2.CODE 
+    {0}
+    FROM joke
     LEFT OUTER JOIN category c on c.Id = joke.CategoryId
     LEFT JOIN user u on u.Id = joke.UserId
     cross join country c2 on u.CountryId = c2.Id
-    WHERE c.Name LIKE "{0}"
-    ORDER BY {1}
-    '''.format(category, order)
+    WHERE c.Name LIKE "{1}" AND u.Username LIKE "{2}"
+    ORDER BY {3}
+    '''.format(userVoteQuery ,category, user, order)
 
     result = select(querry, limit, skip)
     return json.dumps(result)
 
 @app.route("/upvote")
 def upvote():
+    jokeId = request.args.get('jokeId')
     userId = request.args.get('userId')
     userToken = request.args.get('userToken')
-    return ""
+    up = request.args.get('up')
+
+    authorized = len(select(f"SELECT * FROM user WHERE Id = \"{userId}\" AND Token = \"{userToken}\"")) == 1
+    if not authorized:
+        return str("Unautorized"), 401
+
+    insert("DELETE FROM vote WHERE UserId = %s AND JokeId = %s", (userId, jokeId))
+
+    if up != None and up != "":
+        insert("INSERT INTO vote (UserId, JokeId, Up) VALUES (%s, %s, %s)", (userId, jokeId, up))
+
+    return str(authorized), 200
 
 @app.route("/autocomplete/topics")
 def autocompleteTopics():
@@ -129,8 +149,10 @@ def register():
     exists = select(f"SELECT Id FROM user WHERE Username = '{uname}'")
     if(len(exists) != 0):
         return "User already exists", 404
-    result = insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
-    return str(result), 200
+    insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
+    
+    result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}'")
+    return result, 200
     
 @app.route("/login")
 def login():

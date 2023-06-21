@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/KoniOnFire.jpg">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css?v2">
 
     <link rel="stylesheet" href="libs/jquery-ui-1.13.2/jquery-ui.css">
     <script src="libs/jquery-3.6.4.js"></script>
@@ -31,7 +31,9 @@
         <div class="col-lg-2 col-md-2 col-sm-2 col-sx-3">
             <div
                 style=" display: flex; justify-content: flex-start; align-items: center;  height: 100%; padding-left: 2em !important;">
-                <a href="index.html"><h1>Jokes</h1></a>
+                <a href="index.html">
+                    <h1>Jokes</h1>
+                </a>
             </div>
         </div>
         <div class="col-lg-8 col-md-7 col-sm-8 col-sx-7">
@@ -71,12 +73,6 @@
     </main>
 
     <style>
-        .sort {
-            position: sticky;
-            bottom: 0px;
-            width: 70px;
-            height: 25px;
-        }
     </style>
     <div class="sort">
         <select name="Sort by" id="sort">
@@ -88,15 +84,18 @@
         <script>
             document.getElementById("sort").value = jQuery.query.get("sort") ? jQuery.query.get("sort") : "new";
 
-            document.getElementById("sort").addEventListener("change", ()=>{
+            document.getElementById("sort").addEventListener("change", () => {
                 window.location.search = jQuery.query.set("sort", document.getElementById("sort").value);
             });
         </script>
     </div>
+    <div class="add-joke">
+        <input type="image" style="height: 70px; width: auto;" id="myimage" src="images/plus_PNG97.png" />
+    </div>
     <footer>
 
     </footer>
-    <script src="jokes.js"></script>
+    <script src="jokes.js?v2.01"></script>
     <script src="nav.js"></script>
 </body>
 
