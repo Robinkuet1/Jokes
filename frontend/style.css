@@ -215,11 +215,19 @@ button:hover {
 .erd {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    height: 400px;
-}
-
-.erklärung {
     justify-content: center;
+    height: 400px;
+    margin-left: 300px !important;
 }
 
+.erklaerung {
+    padding-top: 30px !important;
+    padding-right: 30px !important;
+    display: flex; 
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.tabelle {
+    padding-right: 30px !important;
+}

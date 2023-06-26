@@ -9,10 +9,14 @@
         url += `category=${category}&`
     if (user)
         url += `user=${user}&`
+
+    if(localStorage.id)
+        url += `userId=${localStorage.id}&`
+    
     if (sort)
-        url += `order=${sort}`
+        url += `&order=${sort}`
     else
-        url += `order=new`
+        url += `&order=new`
         
     console.log(url)
 
@@ -33,8 +37,14 @@
         const userId = element[7];
         const countryName = element[8];
         const countryCode = String(element[9]);
-        const userUpVote = false;
-        const userDownVote = false;
+        let userUpVote = 0;
+        let userDownVote = 0;
+
+        if(localStorage.id){
+            userUpVote = element[10];
+            userDownVote = element[11];
+        }
+
         divElement.addEventListener
         divElement.innerHTML = `
         <div>
@@ -77,26 +87,36 @@
         const downvoteIcon = "images/down-vote-icon.png";
         const downvoteIconEmpty = "images/down-vote-icon-empty.png";
 
-        document.getElementById(`upvote${id}`).addEventListener("click", function () {
+        document.getElementById(`upvote${id}`).addEventListener("click", async function () {
             if (checkLogin()) {
                 if (String(document.getElementById(`upvote${id}`).src).includes("empty")) {
                     document.getElementById(`upvote${id}`).src = upvoteIcon;
                     document.getElementById(`downvote${id}`).src = downvoteIconEmpty;
+
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}&up=1`);
                 }
-                else
+                else{
                     document.getElementById(`upvote${id}`).src = upvoteIconEmpty;
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}`);
+                }
                 console.log("upvote");
             }
         });
 
-        document.getElementById(`downvote${id}`).addEventListener("click", function () {
+        document.getElementById(`downvote${id}`).addEventListener("click", async function () {
             if (checkLogin()) {
                 if (String(document.getElementById(`downvote${id}`).src).includes("empty")) {
                     document.getElementById(`downvote${id}`).src = downvoteIcon;
                     document.getElementById(`upvote${id}`).src = upvoteIconEmpty;
+
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}&up=0`);
                 }
                 else
+                {
                     document.getElementById(`downvote${id}`).src = downvoteIconEmpty;
+
+                    await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}`);
+                }   
                 console.log("downvote");
             }
         });
