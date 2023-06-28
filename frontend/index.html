@@ -103,6 +103,21 @@
     </footer>
     <script src="jokes.js?v2.02"></script>
     <script src="nav.js?v1.1"></script>
+        <script>
+        (async () => {
+            const rawdata = await fetch("https://jokesapi.robinkuet1.com/categories")
+            const data = await rawdata.json();
+
+            data.forEach(element => {
+                const container = document.getElementById("categories");
+                const divElement = document.createElement("ul");
+                divElement.innerHTML = `
+        <li><a class="link-style" href="index.html?category=${element[1]}">${element[1]}</a></li>
+        `
+                container.appendChild(divElement);
+            });
+        })()
+    </script>
 </body>
 
 </html>
