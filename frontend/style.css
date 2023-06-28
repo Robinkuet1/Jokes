@@ -11,8 +11,6 @@ body {
 .content {
     display: flex;
     margin: 2em !important;
-    background-color: #F1F6F9;
-    border: solid 1px #E4F9F5;
     border-radius: 20px;
     padding: 10px !important;
     margin: 2em !important;
@@ -81,15 +79,22 @@ body {
 header {
     display: flex;
     width: 100%;
-    border-bottom: solid 1px gray;
-    background-color: lightgray;
-    height: 4em;
+    background-color: #1a1a1a;
+    height: 4.5em;
+}
+
+.head-text {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
 }
 
 ul {
     list-style-type: none;
     width: 100%;
-    background-color: #f1f1f1;
+    background-color: #565656;
 }
 
 li a {
@@ -107,10 +112,8 @@ li a:hover {
 nav {
     display: flex;
     width: 15%;
-    height: 10000vh;
     overflow: hidden;
     background-color: #E4F9F5;
-    border-right: solid 1px lightgrey;
 }
 
 main {
@@ -137,11 +140,9 @@ main {
     margin: 1em !important;
 }
 
-
 .text {
     margin: 1em 1em 1em 0 !important;
 }
-
 
 .center{
     display: flex;
@@ -157,7 +158,6 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
 
 button {
     background-color: #5d6361;
@@ -230,4 +230,16 @@ button:hover {
 
 .tabelle {
     padding-right: 30px !important;
+}
+
+.link-style {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(5px);
 }

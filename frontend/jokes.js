@@ -12,12 +12,12 @@
 
     if(localStorage.id)
         url += `userId=${localStorage.id}&`
-    
+
     if (sort)
         url += `&order=${sort}`
     else
         url += `&order=new`
-        
+
     console.log(url)
 
 
@@ -47,8 +47,8 @@
 
         divElement.addEventListener
         divElement.innerHTML = `
-        <div>
-            <div class="content">
+        <div class="">
+            <div class="content container">
                 <div>
                     <div class="vote-container">
                         <img src="images/${userUpVote ? "up-vote-icon.png" : "up-vote-icon-empty.png"}" id="upvote${id}" class="vote">
@@ -116,7 +116,7 @@
                     document.getElementById(`downvote${id}`).src = downvoteIconEmpty;
 
                     await fetch(`https://jokesapi.robinkuet1.com/upvote?userId=${localStorage.id}&userToken=${localStorage.token}&jokeId=${id}`);
-                }   
+                }
                 console.log("downvote");
             }
         });

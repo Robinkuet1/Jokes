@@ -24,6 +24,7 @@
             background: white url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/images/ui-anim_basic_16x16.gif") right center no-repeat;
         }
     </style>
+    <link href="pages/css/main.css" rel="stylesheet" media="all">
 </head>
 
 <body class="container-fluid">
@@ -31,20 +32,22 @@
         <div class="col-lg-2 col-md-2 col-sm-2 col-sx-3">
             <div
                 style=" display: flex; justify-content: flex-start; align-items: center;  height: 100%; padding-left: 2em !important;">
-                <a href="index.html">
-                    <h1>Jokes</h1>
+                <a href="index.html" class="link-style">
+                    <h1 class="head-text">Jokes</h1>
                 </a>
             </div>
         </div>
-        <div class="col-lg-8 col-md-7 col-sm-8 col-sx-7">
-            <div class="search-container">
-                <input placeholder="Search..." id="search">
+        <div class="col-lg-7 col-md-7 col-sm-8 col-sx-7" style="display: flex; align-items: center;">
+            <div style="width: 100%;">
+                <div class="search-container">
+                    <input placeholder="Search..." id="search">
+                </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 col-sx-3">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3">
             <div class="Koni">
-                <a href="pages/login.html">Login</a>
-                <a href="pages/register.html">Register</a>
+                <a href="pages/login.html" class="link-style head-text" >Login</a>
+                <a href="pages/register.html" class="link-style head-text">Register</a>
                 <img src="../frontend/images/KoniOnFire.jpg" alt="Koni" class="Koni">
             </div>
         </div>
@@ -53,7 +56,7 @@
         <div id="jokes"></div>
         <nav class="col-lg-3, col-md-2 col-sm-3 col-xs-4">
             <ul id="categories">
-                <li><a href="pages/erd.html">ERD</a></li>
+                <li><a href="pages/erd.html" class="link-style">ERD</a></li>
 
             </ul>
         </nav>
@@ -61,11 +64,13 @@
             <div class="container-fluid">
 
                 <article class="row">
-                    <div class="col-lg-3, col-md-2 col-sm-1 col-xs-0"></div>
-                    <div class="col-lg-6, col-md-8 col-sm-10 col-xs-12">
-                        <div id="serb"></div>
+                    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50" style="display: flex; justify-content: center;">
+                        <div class="col-lg-3, col-md-2 col-sm-1 col-xs-0"></div>
+                        <div class="col-lg-6, col-md-8 col-sm-10 col-xs-12">
+                            <div id="serb"></div>
+                        </div>
+                        <div class="col-lg-3, col-md-2 col-sm-1 col-xs-0"></div>
                     </div>
-                    <div class="col-lg-3, col-md-2 col-sm-1 col-xs-0"></div>
                 </article>
             </div>
 
@@ -89,14 +94,30 @@
             });
         </script>
     </div>
-    <div class="add-joke" >
-       <a href="pages/create-joke.html"><input type="image" style="height: 70px; width: auto;" id="myimage" src="images/plus_PNG97.png" alt="Create Joke" /></a>
+    <div class="add-joke">
+        <a href="pages/form.html"><input type="image" style="height: 70px; width: auto;" id="myimage"
+                src="images/plus_PNG97.png" alt="Create Joke" /></a>
     </div>
     <footer>
 
     </footer>
     <script src="jokes.js?v2.01"></script>
     <script src="nav.js"></script>
+    <script>
+        (async () => {
+            const rawdata = await fetch("https://jokesapi.robinkuet1.com/categories")
+            const data = await rawdata.json();
+
+            data.forEach(element => {
+                const container = document.getElementById("categories");
+                const divElement = document.createElement("ul");
+                divElement.innerHTML = `
+        <li><a class="link-style" href="index.html?category=${element[1]}">${element[1]}</a></li>
+        `
+                container.appendChild(divElement);
+            });
+        })()
+    </script>
 </body>
 
 </html>
