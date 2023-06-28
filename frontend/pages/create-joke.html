@@ -50,38 +50,32 @@
         </div>
     </header>
     <main class="row">
-        <div id="jokes"></div>
+        <div>
+            <div class="container">
+                <h1>Create Joke</h1>
+                <label for="uname"><b>Text</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
 
-        <div class="col-lg-10, col-md-10 col-sm-9 col-xs-8">
-            <div class="container-fluid">
+                <!-- Dropdown -->
+                <label for="psw"><b>Category</b></label>
+                <input placeholder="Search..." id="search2">
+                <script>
+                $("#search2").autocomplete({
+                    source: "https://jokesapi.robinkuet1.com/autocomplete/topics?name=",
+                    minLength: 1
+                });
 
-                <article class="row article-row">
-                    <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
-                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 article-content">
-                        <h1 id="erd">ERD</h1>
-                        <img src="..\images\erd.png" class="erd">
-                    </div>
-                    <div class="erklärung article-content">
-                        <h2>Unsere Tabellen:</h2>
-                        <h5>Vote:</h5>
-                        <p>in der Vote Tabelle werden die Votes eines Witzes gespeichert. Die Vote Tabelle ist mit dem User verbunden, welcher einen Vote macht, und mit dem Joke, welcher bewertet wurde.</p>
-                        <h5>Joke:</h5>
-                        <p>In der Joke Tabelle wird der Witz gespeichert. Ebenfalls wird das Datum, wann der Witz erstellt wurde, und die Altersbeschränkung gespeichert. Joke ist mit User und Category verbunden.</p>
-                        <h5>User:</h5>
-                        <p>Die Tabelle "User" repräsentiert die Benutzer im System. Sie enthält Informationen wie den Benutzernamen, das Passwort, das Land und die NSFW (Not Safe for Work) Einstellung. Jeder Benutzer hat eine eindeutige ID.</p>
-                        <h5>Comment:</h5>
-                        <p>Die Tabelle "Comment" speichert Kommentare zu Witzen. Jeder Kommentar ist über den Fremdschlüssel "JokeId" mit einem bestimmten Witz verknüpft.</p>
-                        <h5>Category:</h5>
-                        <p>Die Tabelle "Category" enthält verschiedene Kategorien oder Tags, die Witzen zugeordnet werden können. Sie hilft bei der Organisation und Klassifizierung von Witzen nach Themen oder Kategorien.</p>
-                        <h5>Country:</h5>
-                        <p>Die Tabelle "Country" enthält Informationen über verschiedene Länder. Sie umfasst den Ländernamen und den zweistelligen Ländercode.</p>
-                    </div>
-                    <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
-                </article>
+                </script>
+
+                <!-- nsfw y/n -->
+                <label for="psw"><b>nsfw</b></label>
+                <input type="checkbox" id="1" name="kek">
+                <button id="register">ok</button>
             </div>
 
         </div>
     </main>
+    <script src="../nav.js"></script>
 </body>
 
 </html>

@@ -36,7 +36,7 @@ def categories():
     limit = request.args.get('limit')
     if(limit == None or limit == ""):
         limit = "10"
-    
+
     skip = request.args.get('skip')
     if(skip == None or skip == ""):
         skip = "0"
@@ -55,11 +55,11 @@ def jokes():
     category = request.args.get('category')
     if(category == None or category == ""):
         category = "%"
-    
+
     limit = request.args.get('limit')
     if(limit == None or limit == ""):
         limit = "10"
-    
+
     skip = request.args.get('skip')
     if(skip == None or skip == ""):
         skip = "0"
@@ -150,10 +150,10 @@ def register():
     if(len(exists) != 0):
         return "User already exists", 404
     insert(f"INSERT INTO user (Username, Password, Token, CountryId, NSFW) VALUES (%s, %s, %s, %s, %s)", (uname, pwd, token, countryId, nsfw))
-    
+
     result = select(f"SELECT Id, Token FROM user WHERE Username = '{uname}'")
     return result, 200
-    
+
 @app.route("/login")
 def login():
     uname = request.args.get("username")
@@ -165,7 +165,7 @@ def login():
     if(len(result) == 0):
         return "Unauthorized", 401
     return result
-    
+
 @app.route("/isNSFW")
 def isNSFW():
     uname = request.args.get("username")
@@ -174,6 +174,6 @@ def isNSFW():
     if(len(nsfw) != 0):
         return str(nsfw[0][0])
     return "0"
-    
+
 
 app.run(host="0.0.0.0",port=5678)
